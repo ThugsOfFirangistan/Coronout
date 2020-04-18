@@ -21,7 +21,6 @@ class _HomeState extends State<Home> {
 
   void initialise() async {
     List<ArtContent> _temp = await News().getNews();
-    print(_temp);
     setState(() {
       articles = _temp;
     });

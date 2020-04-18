@@ -6,10 +6,20 @@ import 'package:gocorona/Screens/India.dart';
 import 'package:gocorona/Screens/SymptomsPage.dart';
 import 'package:gocorona/Screens/PreventionPage.dart';
 import 'package:gocorona/Screens/Help.dart';
+import 'package:gocorona/Welcome.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(Gocorona());
 
 class Gocorona extends StatelessWidget {
+  Future<int> checkFirstSeen() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool _seen = (prefs.getBool('seen') ?? false);
+    if (_seen) 
+        return 1;
+    await prefs.setBool('seen', true);
+    return 0;
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,7 +28,7 @@ class Gocorona extends StatelessWidget {
         '/symptoms': (context) => SymptomsPage(),
         '/prevention': (context) => PreventionPage(),
       },
-      home: MyStatefulWidget(),
+      home: checkFirstSeen() != 1 ? MyStatefulWidget() : Welcome(),
     );
   }
 }
