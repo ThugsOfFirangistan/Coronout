@@ -27,7 +27,7 @@
             android:name="flutterEmbedding"
             android:value="2" />
         <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="Your key here"/>
+               android:value="AIzaSyCRbijw6h-jMUHwNph27zvJeffaoxPZAk8"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WAKE_LOCK" />

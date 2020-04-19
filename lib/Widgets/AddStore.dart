@@ -74,7 +74,7 @@ class _AddStoreState extends State<AddStore> {
               ),
               Center(
                   child: SearchMapPlaceWidget(
-                      apiKey: "Your key here",
+                      apiKey: "AIzaSyCRbijw6h-jMUHwNph27zvJeffaoxPZAk8",
                       onSelected: (Place place) async {
                         final geolocation = await place.geolocation;
                         List<String> cor =
