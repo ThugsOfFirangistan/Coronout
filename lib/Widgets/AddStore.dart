@@ -17,10 +17,7 @@ class _AddStoreState extends State<AddStore> {
   @override
   void initState() {
     super.initState();
-    initialise();
   }
-
-  void initialise() async {}
 
   @override
   Widget build(BuildContext context) {
