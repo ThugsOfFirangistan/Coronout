@@ -19,19 +19,20 @@ import 'package:vibration/vibration.dart';
 void main() => runApp(Gocorona());
 
 class Gocorona extends StatelessWidget {
-  Future<int> checkFirstSeen() async {
+  bool seen = false, login = false;
+
+  Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool _seen = (prefs.getBool('seen') ?? false);
-    if (_seen) return 1;
+    seen = _seen;
     await prefs.setBool('seen', true);
-    return 0;
   }
 
-  Future<int> checkLogin() async {
+  Future checkLogin() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool _login = (prefs.getBool('login') ?? false);
-    if (_login) return 1;
-    return 0;
+    print("login $_login");
+    login = _login;
   }
 
   @override
@@ -44,9 +45,7 @@ class Gocorona extends StatelessWidget {
         '/homepage': (context) => MyStatefulWidget(),
         '/loginpage': (context) => Login(),
       },
-      home: checkFirstSeen() != 1
-          ? checkLogin() != 1 ? Login() : MyStatefulWidget()
-          : Welcome(),
+      home: seen ? Welcome() : login ? Login() : MyStatefulWidget(),
     );
   }
 }
@@ -68,29 +67,28 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   bool isbton = false, isnear = false;
   int cnt = 0;
   scanForDevices() {
-    if (cnt == 0) {
-      flutterBlue.startScan();
-      flutterBlue.scanResults.listen((results) {
-        if (results.length != 0) {
-          for (ScanResult r in results) {
-            print('${r.device.id} found! rssi: ${r.rssi} ');
-            cnt++;
-            alertUsingVibrations(r.rssi, -69);
-          }
+    flutterBlue.startScan();
+    flutterBlue.scanResults.listen((results) {
+      if (results.length != 0 && cnt == 0) {
+        for (ScanResult r in results) {
+          print('${r.device.id} found! rssi: ${r.rssi} ');
+          setState(() {
+            isnear = true;
+          });
+          alertUsingVibrations(r.rssi, -69);
+          cnt++;
         }
-      });
-    }
+      }
+    });
   }
 
   alertUsingVibrations(int rssi, int txPower) {
     //social distancing
     double distance = pow(10, ((txPower - rssi) / (10 * 2)));
-    if (distance <= 1.8) {
+    if (distance <= 1.8 && cnt == 0) {
       Vibration.vibrate(
           pattern: [100, 2000, 100, 2000], intensities: [128, 150]);
-      setState(() {
-        isnear = true;
-      });
+      cnt++;
     }
   }
 
