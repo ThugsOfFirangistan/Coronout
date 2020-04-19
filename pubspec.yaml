@@ -37,7 +37,10 @@ dependencies:
   loading: ^1.0.2
   introduction_screen: ^1.0.8
   dots_indicator: ^1.1.0
-  flutter_blue: ^0.7.1+1
+  flutter_blue:
+    git:
+        url: https://github.com/boskokg/flutter_blue.git
+        ref: 0.7.1
   vibration: ^1.2.4
   flutter_dialogflow: ^0.1.2
   flutter_inappwebview:
@@ -46,6 +49,7 @@ dependencies:
       ref: master
   google_maps_flutter: ^0.5.21+15
   search_map_place: ^0.3.0
+  app_settings: 3.0.1
   
 dev_dependencies:
   flutter_test:
