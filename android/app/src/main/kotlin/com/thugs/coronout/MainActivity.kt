@@ -1,4 +1,4 @@
-package com.example.coronout
+package com.thugs.coronout
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
