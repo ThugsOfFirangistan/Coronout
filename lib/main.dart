@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:gocorona/Screens/Around.dart';
 import 'package:gocorona/Screens/Home.dart';
+import 'package:gocorona/Screens/Login.dart';
 import 'package:gocorona/Screens/World.dart';
 import 'package:gocorona/Screens/India.dart';
 import 'package:gocorona/Screens/SymptomsPage.dart';
@@ -11,8 +12,6 @@ import 'package:gocorona/Screens/PreventionPage.dart';
 import 'package:gocorona/Screens/Help.dart';
 import 'package:gocorona/Welcome.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/services.dart';
-import 'dart:io';
 import 'package:app_settings/app_settings.dart';
 
 import 'package:vibration/vibration.dart';
@@ -28,6 +27,13 @@ class Gocorona extends StatelessWidget {
     return 0;
   }
 
+  Future<int> checkLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool _login = (prefs.getBool('login') ?? false);
+    if (_login) return 1;
+    return 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,8 +41,12 @@ class Gocorona extends StatelessWidget {
       routes: {
         '/symptoms': (context) => SymptomsPage(),
         '/prevention': (context) => PreventionPage(),
+        '/homepage': (context) => MyStatefulWidget(),
+        '/loginpage': (context) => Login(),
       },
-      home: checkFirstSeen() != 1 ? MyStatefulWidget() : Welcome(),
+      home: checkFirstSeen() != 1
+          ? checkLogin() != 1 ? Login() : MyStatefulWidget()
+          : Welcome(),
     );
   }
 }

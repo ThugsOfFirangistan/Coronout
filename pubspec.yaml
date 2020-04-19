@@ -41,6 +41,7 @@ dependencies:
     git:
         url: https://github.com/boskokg/flutter_blue.git
         ref: 0.7.1
+  firebase_auth: ^0.16.0
   vibration: ^1.2.4
   flutter_dialogflow: ^0.1.2
   flutter_inappwebview:
