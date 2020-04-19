@@ -4,7 +4,7 @@ import 'package:gocorona/Models/worldmodel.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 
-final String link = "https://corona.lmao.ninja/";
+final String link = "https://corona.lmao.ninja/v2/";
 final DateFormat format = new DateFormat("MM/dd/yy");
 
 Future<Report> getReport() async {
