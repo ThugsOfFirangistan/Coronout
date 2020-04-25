@@ -5,6 +5,7 @@ import 'package:flutter_blue/flutter_blue.dart';
 import 'package:gocorona/Screens/Around.dart';
 import 'package:gocorona/Screens/Home.dart';
 import 'package:gocorona/Screens/Login.dart';
+import 'package:gocorona/Screens/NearbyMe.dart';
 import 'package:gocorona/Screens/World.dart';
 import 'package:gocorona/Screens/India.dart';
 import 'package:gocorona/Screens/SymptomsPage.dart';
@@ -42,8 +43,8 @@ class Gocorona extends StatelessWidget {
       routes: {
         '/symptoms': (context) => SymptomsPage(),
         '/prevention': (context) => PreventionPage(),
-        '/homepage': (context) => MyStatefulWidget(),
-        '/loginpage': (context) => Login(),
+        '/homepage': (context) => NearByMe(),    
+        '/loginpage': (context) => Login(),        
       },
       home: seen ? Welcome() : login ? Login() : MyStatefulWidget(),
     );

@@ -41,7 +41,11 @@ dependencies:
     git:
         url: https://github.com/boskokg/flutter_blue.git
         ref: 0.7.1
+  nearby_connections: ^1.0.3
+  firebase_core: ^0.4.4+3
+  cloud_firestore: ^0.13.4+2
   firebase_auth: ^0.16.0
+  flutter_local_notifications: ^1.4.1
   vibration: ^1.2.4
   flutter_dialogflow: ^0.1.2
   flutter_inappwebview:

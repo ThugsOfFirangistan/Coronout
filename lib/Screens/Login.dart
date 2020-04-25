@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
@@ -22,6 +24,7 @@ class _LoginState extends State<Login> {
   String verificationId;
   String errorMessage = '';
   FirebaseAuth _auth = FirebaseAuth.instance;
+  Firestore _firestore = Firestore.instance;
 
   Future<void> verifyPhone() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -99,6 +102,7 @@ class _LoginState extends State<Login> {
                 onPressed: () {
                   _auth.currentUser().then((user) {
                     if (user != null) {
+                      createRecord();
                       Navigator.of(context).pop();
                       Navigator.of(context).pushReplacementNamed('/homepage');
                     } else {
@@ -112,6 +116,16 @@ class _LoginState extends State<Login> {
         });
   }
 
+  void createRecord() async {
+    try {
+      final newUser = await _auth.createUserWithEmailAndPassword(
+          email: phoneNo, password: "abc123");
+          print(newUser);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   signIn() async {
     try {
       final AuthCredential credential = PhoneAuthProvider.getCredential(
@@ -121,6 +135,7 @@ class _LoginState extends State<Login> {
       final AuthResult user = await _auth.signInWithCredential(credential);
       final FirebaseUser currentUser = await _auth.currentUser();
       assert(user.user.uid == currentUser.uid);
+      createRecord();
       Navigator.of(context).pop();
       Navigator.of(context).pushReplacementNamed('/homepage');
     } catch (e) {
@@ -179,7 +194,7 @@ class _LoginState extends State<Login> {
                 color: Colors.white,
                 child: TextField(
                   onChanged: (value) {
-                    this.phoneNo = "+91"+value;
+                    this.phoneNo = "+91" + value;
                   },
                   style: TextStyle(
                       color: Colors.black, decoration: TextDecoration.none),
