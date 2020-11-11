@@ -1,4 +1,4 @@
-<p align="center"> <img width="300" height="250" src="https://cdn.dribbble.com/users/4245746/screenshots/11116305/media/2ad36b1241d9e4a9a28e0cb94b70b61f.png">  </p>
+<p align="center"> <img src="https://cdn.dribbble.com/users/4245746/screenshots/11116305/media/2ad36b1241d9e4a9a28e0cb94b70b61f.png">  </p>
 
 # Coronout
 
